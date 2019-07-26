@@ -1,0 +1,59 @@
+ #### TO BE RUN ON UBUNTU ####
+ #### INSTALL NS+OACS ####
+ 
+ 48  sudo git clone https://github.com/gustafn/install-ns
+ 49  cd install-ns/
+ 50  ls
+ 51  sudo bash
+ 52  cd /usr/local/ns/
+
+ 59  gedit config-oacs-5-9-1.tcl 
+ 60  sudo gedit config-oacs-5-9-1.tcl 
+ 61  bash install-ns.sh
+ 62  bash install-ns.sh build
+ 63  bash install-oacs.sh
+ 64  bash install-oacs.sh build
+ 65  status oacs-5-9-1
+ 69  sudo /usr/local/ns/bin/nsd -f -u nsadmin -g nsadmin -t /usr/local/ns/conf/nsd-config.tcl
+
+ #### INSTALL NS REVERSE PROXY ####
+ 
+ 136  sudo hg clone https://bitbucket.org/naviserver/revproxy/
+ 137  cd revproxy/
+ 138  ls
+ 140  sudo make install
+
+ ####INSTALL SOLID ####
+ 
+ 999  mkdir Solid
+ 1000  cd Solid/
+ 1001  git clone https://github.com/solid/node-solid-server.git
+ 1002  cd node-solid-server/
+ 1003  mkdir build
+ 1004  pushd build
+ 1005  openssl req -outform PEM -keyform PEM -new -x509 -sha256 -newkey rsa:2048 -nodes -keyout ../privkey.pem -days 365 -out ../fullchain.pem
+
+ 1007  ../bin/solid init
+
+ 1009  npm install commander --save
+
+ 1013  ../bin/solid init
+ 
+? Path to the folder you want to serve. Default is /home/pmpetrov/Solid/node-solid-server/build/data
+? SSL port to run on. Default is 8443
+? Solid server uri (with protocol, hostname and port) https://localhost:8443
+? Enable WebID authentication Yes
+? Serve Solid on URL path /
+? Path to the config directory (for example: /etc/solid-server) ./config
+? Path to the config file (for example: ./config.json) ./config.json
+? Path to the server metadata db directory (for users/apps etc) ./.db
+? Path to the SSL private key in PEM format /home/pmpetrov/Solid/node-solid-server/privkey.pem
+? Path to the SSL certificate key in PEM format /home/pmpetrov/Solid/node-solid-server/fullchain.pem
+? Enable multi-user mode No
+? Do you want to set up an email service? No
+? A name for your server (not required, but will be presented on your server's frontpage) localhost
+? A description of your server (not required) 
+? A logo that represents you, your brand, or your server (not required) 
+
+ 1015  ../bin/solid start --no-reject-unauthorized
+ 
